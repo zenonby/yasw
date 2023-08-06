@@ -1,2 +1,1 @@
-# yasw
-Yet Another SQLite Wrapper
+# Yet Another SQLite Wrapper
