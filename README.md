@@ -15,7 +15,7 @@ db.prepare(L"insert into students (name) values (?)")
 // Query
 auto rs = db.prepare(L"select count(*) from students where name = ?")
   .addParameter(L"Bob")
-  .seelct();
+  .select();
 int studentCount = rs.getInt(0).value();
 
 // Transaction
