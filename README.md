@@ -19,7 +19,7 @@ auto rs = db.prepare(L"select count(*) from students where name = ?")
 int studentCount = rs.getInt(0).value();
 
 // Transaction
-auto transaction = db.createTransaction();
+auto transaction = db.beginTransaction();
 
 // ... do some stuff
 
