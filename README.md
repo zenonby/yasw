@@ -1,7 +1,9 @@
 # Yet Another SQLite Wrapper
 ## Overview
 Basic wrapper for libsqlite3.
+
 Not thread-safe, not for concurent execution. Synchronization must be guaranteed by a calling code.
+
 A single statement can be prepared/executed at once.
 
 ## Basic usage
