@@ -29,7 +29,6 @@ for (auto rs = db.select(L"select id, name from students"); !!rs; ++rs)
   // ...
 }
 
-
 // Transaction
 auto transaction = db.beginTransaction();
 
