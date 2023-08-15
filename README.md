@@ -21,6 +21,15 @@ auto rs = db.prepare(L"select count(*) from students where name = ?")
   .select();
 int studentCount = rs.getInt(0).value();
 
+// Iterating over query results
+for (auto rs = db.select(L"select id, name from students"); !!rs; ++rs)
+{
+  int id = rs.getInt(0).value();
+  auto name = rs.getWString(1).value();
+  // ...
+}
+
+
 // Transaction
 auto transaction = db.beginTransaction();
 
