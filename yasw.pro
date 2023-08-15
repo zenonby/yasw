@@ -4,6 +4,7 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 CONFIG += c++20
+QMAKE_CXXFLAGS += -std=c++2a
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
