@@ -6,7 +6,7 @@ SqliteTransaction::SqliteTransaction(SqliteDb* db)
 	: m_db(db),
 	  m_complete(false)
 {
-	assert(!!m_db);
+	assert(m_db);
 
 	m_db->execute(L"BEGIN IMMEDIATE TRANSACTION");
 }
