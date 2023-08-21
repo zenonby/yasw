@@ -1,7 +1,10 @@
 # Yet Another SQLite Wrapper
 ## Overview
-Basic wrapper for libsqlite3. Not thread-safe, not for concurent execution. Synchronization must be guaranteed by a calling code.
-Only single statement can be prepared/executed at once.
+Basic wrapper for libsqlite3.
+
+Not thread-safe, not for concurrent execution. Synchronization must be guaranteed by a calling code.
+
+A single statement can be prepared/executed at once.
 
 ## Basic usage
 ```
@@ -17,6 +20,14 @@ auto rs = db.prepare(L"select count(*) from students where name = ?")
   .addParameter(L"Bob")
   .select();
 int studentCount = rs.getInt(0).value();
+
+// Iterate over query results
+for (auto rs = db.select(L"select id, name from students"); !!rs; ++rs)
+{
+  int id = rs.getInt(0).value();
+  auto name = rs.getWString(1).value();
+  // ...
+}
 
 // Transaction
 auto transaction = db.beginTransaction();
