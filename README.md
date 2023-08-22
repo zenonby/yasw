@@ -15,6 +15,18 @@ db.prepare(L"insert into students (name) values (?)")
   .addParameter(L"Bob")
   .execute();
 
+// Execute non-query statement with optional NULL value
+
+std::optional<std::wstring> name;
+auto cmd = std::move(db.prepare(L"insert into students (name) values (?)"));
+
+if (name.has_value())
+  cmd.addParameter(name.value());
+else
+  cmd.addParameterNull();
+
+cmd.execute();
+
 // Query
 auto rs = db.prepare(L"select count(*) from students where name = ?")
   .addParameter(L"Bob")

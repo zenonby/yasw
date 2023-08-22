@@ -28,6 +28,9 @@ class SqliteCommand
 public:
 	~SqliteCommand();
 
+	SqliteCommand(SqliteCommand&&) = default;
+	SqliteCommand& operator=(SqliteCommand&&) = default;
+
 	SqliteCommand& addParameter(int value);
 	SqliteCommand& addParameter(long long value);
 	SqliteCommand& addParameter(double value);
@@ -43,9 +46,7 @@ private:
 	SqliteCommand(sqlite3* db, const std::wstring& sql);
 
 	SqliteCommand(const SqliteCommand&) = delete;
-	SqliteCommand(SqliteCommand&&) = delete;
 	SqliteCommand& operator=(const SqliteCommand&) = delete;
-	SqliteCommand& operator=(SqliteCommand&&) = delete;
 
 	sqlite3* m_db;
 	sqlite3_stmt* m_preparedStmt;
