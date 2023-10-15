@@ -107,7 +107,13 @@ SqliteDb::select(const std::wstring& sql)
 SqliteCommand
 SqliteDb::prepare(const std::wstring& sql)
 {
-    return SqliteCommand(m_db, sql);
+    // RTrim
+    std::wstring sql2 = sql;
+    sql2.erase(std::find_if(sql2.rbegin(), sql2.rend(), [](auto ch) {
+            return !std::isspace(ch) && ch != L';';
+        }).base(), sql2.end());
+
+    return SqliteCommand(m_db, sql2);
 }
 
 SqliteTransaction
