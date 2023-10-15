@@ -52,6 +52,7 @@ SqliteCommand::execute()
 	{
 		std::string errMsg = sqlite3_errmsg(m_db);
 		sqlite3_finalize(m_preparedStmt);
+		m_preparedStmt = nullptr;
 
 		throw SqliteError(errMsg);
 	}
@@ -70,6 +71,7 @@ SqliteCommand::select()
 	{
 		std::string errMsg = sqlite3_errmsg(m_db);
 		sqlite3_finalize(m_preparedStmt);
+		m_preparedStmt = nullptr;
 
 		throw SqliteError(errMsg);
 	}

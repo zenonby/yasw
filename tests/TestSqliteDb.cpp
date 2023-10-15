@@ -85,12 +85,30 @@ BOOST_FIXTURE_TEST_CASE(testMultipleStatementsFail, SqliteDbFixture)
 	m_sqliteDb->execute(L"drop table products");
 }
 
+BOOST_FIXTURE_TEST_CASE(testDmlEmptyRecordSet, SqliteDbFixture)
+{
+	m_sqliteDb->execute(L"create table products ( id integer primary key, name text not null )");
+
+	auto sqlSelect = L"select max(last_insert_rowid()) from products";
+
+	// Test empty recordset
+	auto rs = m_sqliteDb->select(sqlSelect);
+
+	m_sqliteDb->execute(L"drop table products");
+}
+
 BOOST_FIXTURE_TEST_CASE(testDmlPreparedCommands, SqliteDbFixture)
 {
 	m_sqliteDb->execute(L"create table products ( id integer primary key, name text not null )");
 
-	auto sqlInsert = L"insert into products (name) values (?)";
 	auto sqlSelect = L"select max(last_insert_rowid()) from products";
+
+	// Test empty recordset
+	{
+		auto rs = m_sqliteDb->select(sqlSelect);
+	}
+
+	auto sqlInsert = L"insert into products (name) values (?)";
 
 	m_sqliteDb->prepare(sqlInsert)
 		.addParameter(L"bread")
