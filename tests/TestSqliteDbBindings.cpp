@@ -100,4 +100,17 @@ BOOST_FIXTURE_TEST_CASE(testBindBlob, SqliteDbFixture)
 	BOOST_CHECK(val1 == val2);
 }
 
+BOOST_FIXTURE_TEST_CASE(testBindDateTime, SqliteDbFixture)
+{
+	auto dt = std::chrono::utc_clock::now();
+
+	m_sqliteDb->prepare(L"insert into test (val_text) values (?)")
+		.addParameter(dt)
+		.execute();
+
+	auto val = m_sqliteDb->select(L"select val_text from test").getDateTime(0).value();
+	bool eq = val == dt;
+	BOOST_CHECK(eq);
+}
+
 BOOST_AUTO_TEST_SUITE_END()

@@ -120,7 +120,7 @@ SqliteRecordset::getDateTime(int index) const
 
 	// Parse text value into date/time
 	TDateTime value;
-	if (!std::chrono::from_stream(st, DATE_TIME_FORMAT, value))
+	if (!std::chrono::from_stream(st, DATE_TIME_FORMAT_LOAD, value))
 		throw SqliteInvalidDateFormatError();
 
 	return value;

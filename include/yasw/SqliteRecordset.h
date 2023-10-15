@@ -65,7 +65,8 @@ private:
 	SqliteRecordset& operator=(SqliteRecordset&&) = delete;
 
 	// Internal format of datetime value reprsenation as string in database
-	inline static const char* const DATE_TIME_FORMAT{ "%Y-%m-%dT%H:%M:%S" };
+	inline static const char* const DATE_TIME_FORMAT_SAVE{ "{0:%F}T{0:%T%z}" };
+	inline static const char* const DATE_TIME_FORMAT_LOAD{ "%FT%T%z" };
 
 	sqlite3* m_db;
 	sqlite3_stmt* m_preparedStmt;

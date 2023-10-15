@@ -167,7 +167,7 @@ SqliteCommand::addParameter(const SqliteRecordset::TDateTime& value)
 	checkStatement();
 
 	// Store as string
-	std::string sValue = std::format(SqliteRecordset::DATE_TIME_FORMAT, value);
+	std::string sValue = std::format(SqliteRecordset::DATE_TIME_FORMAT_SAVE, value);
 
 	auto res = sqlite3_bind_text(
 		m_preparedStmt, ++m_parameterCount, sValue.c_str(), -1, SQLITE_TRANSIENT);
