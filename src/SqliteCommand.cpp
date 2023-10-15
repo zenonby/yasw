@@ -32,6 +32,34 @@ SqliteCommand::~SqliteCommand()
 	}
 }
 
+SqliteCommand::SqliteCommand(SqliteCommand&& rhs) noexcept
+: m_db(nullptr),
+  m_preparedStmt(nullptr),
+  m_parameterCount(0)
+{
+	moveFrom(std::move(rhs));
+}
+
+SqliteCommand&
+SqliteCommand::operator=(SqliteCommand&& rhs) noexcept
+{
+	moveFrom(std::move(rhs));
+	return *this;
+}
+
+void
+SqliteCommand::moveFrom(SqliteCommand&& rhs) noexcept
+{
+	m_db = rhs.m_db;
+	rhs.m_db = nullptr;
+
+	m_preparedStmt = rhs.m_preparedStmt;
+	rhs.m_preparedStmt = nullptr;
+
+	m_parameterCount = rhs.m_parameterCount;
+	rhs.m_parameterCount = 0;
+}
+
 void
 SqliteCommand::checkStatement()
 {

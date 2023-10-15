@@ -85,14 +85,20 @@ BOOST_FIXTURE_TEST_CASE(testMultipleStatementsFail, SqliteDbFixture)
 	m_sqliteDb->execute(L"drop table products");
 }
 
-BOOST_FIXTURE_TEST_CASE(testDmlEmptyRecordSet, SqliteDbFixture)
+BOOST_FIXTURE_TEST_CASE(testSqlCommandDtorInExceptionStackUnwinding, SqliteDbFixture)
 {
 	m_sqliteDb->execute(L"create table products ( id integer primary key, name text not null )");
 
 	auto sqlSelect = L"select max(last_insert_rowid()) from products";
 
-	// Test empty recordset
-	auto rs = m_sqliteDb->select(sqlSelect);
+	// Check SqliteCommand dtor in exception stack unwinding
+	{
+		// Test empty recordset
+		auto rs = m_sqliteDb->select(sqlSelect);
+
+		// Cannot drop locked DB
+		BOOST_CHECK_THROW(m_sqliteDb->execute(L"drop table products"), SqliteError);
+	}
 
 	m_sqliteDb->execute(L"drop table products");
 }
@@ -172,6 +178,19 @@ BOOST_FIXTURE_TEST_CASE(testTransaction, SqliteDbFixture)
 		.getInt(0)
 		.value();
 	BOOST_CHECK_EQUAL(recCount, 1);
+
+	m_sqliteDb->execute(L"drop table products");
+}
+
+BOOST_FIXTURE_TEST_CASE(testStandalonePreparedCommand, SqliteDbFixture)
+{
+	m_sqliteDb->execute(L"create table products ( id integer primary key, name text not null )");
+
+	auto sql = L"insert into products (name) values (?)";
+
+	auto cmd = std::move(m_sqliteDb->prepare(sql));
+	cmd.addParameter(L"bread");
+	cmd.execute();
 
 	m_sqliteDb->execute(L"drop table products");
 }

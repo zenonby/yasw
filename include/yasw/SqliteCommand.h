@@ -28,8 +28,8 @@ class SqliteCommand
 public:
 	~SqliteCommand();
 
-	SqliteCommand(SqliteCommand&&) = default;
-	SqliteCommand& operator=(SqliteCommand&&) = default;
+	SqliteCommand(SqliteCommand&& rhs) noexcept;
+	SqliteCommand& operator=(SqliteCommand&& rhs) noexcept;
 
 	SqliteCommand& addParameter(int value);
 	SqliteCommand& addParameter(long long value);
@@ -52,6 +52,8 @@ private:
 	sqlite3_stmt* m_preparedStmt;
 
 	int m_parameterCount;
+
+	void moveFrom(SqliteCommand&& rhs) noexcept;
 
 	void checkStatement();
 };
