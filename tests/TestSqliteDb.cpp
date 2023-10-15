@@ -66,7 +66,7 @@ BOOST_FIXTURE_TEST_CASE(testRecordsetIteration, SqliteDbFixture)
 		.execute();
 
 	int count = 0;
-	for (auto rs = m_sqliteDb->select(L"select id, name from products"); !!rs; ++rs, ++count);
+	for (auto rs = m_sqliteDb->select(L"select id, name from products"); rs; ++rs, ++count);
 
 	BOOST_CHECK_EQUAL(3, count);
 
