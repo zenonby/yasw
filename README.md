@@ -15,7 +15,7 @@ db.prepare(L"insert into students (name) values (?)")
   .addParameter(L"Bob")
   .execute();
 
-// Execute non-query statement with optional NULL value
+// Execute non-query statement with an optional NULL value
 
 std::optional<std::wstring> name;
 auto cmd = std::move(db.prepare(L"insert into students (name) values (?)"));
