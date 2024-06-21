@@ -2,6 +2,10 @@ cmake_minimum_required(VERSION 3.5)
 
 # Use _ROOT variables to find packages
 cmake_policy(SET CMP0074 NEW)
+cmake_policy(SET CMP0091 NEW)
+
+# Statically link MS VC++ runtime library
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 project(yasw
     VERSION   0.1
