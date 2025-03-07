@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 
+set(CMAKE_USER_MAKE_RULES_OVERRIDE "${CMAKE_CURRENT_LIST_DIR}/CMakeOverride.cmake")
+
 # Use _ROOT variables to find packages
 cmake_policy(SET CMP0074 NEW)
 cmake_policy(SET CMP0091 NEW)
