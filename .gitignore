@@ -3,3 +3,11 @@ lib
 out
 yasw.pro.user
 yasw.pdb
+cmake_install.cmake
+CTestTestfile.cmake
+CMakeCache.txt
+CMakeFiles/
+Makefile
+x64
+Debug
+Release

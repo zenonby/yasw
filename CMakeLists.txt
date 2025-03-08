@@ -7,7 +7,7 @@ cmake_policy(SET CMP0074 NEW)
 cmake_policy(SET CMP0091 NEW)
 
 # Statically link MS VC++ runtime library
-if(MSVC)
+if(WIN32)
 	set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 endif()
 
